@@ -1,4 +1,5 @@
 import React from 'react';
+import 'whatwg-fetch';
 import headlineCache from './local-cache-manager';
 
 const HEADLINE_ENDPOINT = '//howwhatwhy.herokuapp.com/api/headlines/';

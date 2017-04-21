@@ -2,9 +2,13 @@ const fs = require('fs'),
 	cssBuilder = require('./css-builder.js'),
 	devConfig = require('../conf/webpack.config.dev.js'),
 	DevServer = require('webpack-dev-server'),
+	path = require('path'),
 	webpack = require('webpack'),
 	// starts the dev server
-	server = new DevServer(webpack(devConfig), {hot: true});
+	server = new DevServer(webpack(devConfig), {
+		contentBase: [path.resolve(), path.resolve("assets")],
+		hot: true
+	});
 
 server.listen(8000);
 

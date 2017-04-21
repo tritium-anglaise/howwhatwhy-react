@@ -24,7 +24,9 @@ const AWS = require( 'aws-sdk' ),
 		} else if (_parsedName.ext === '.gz') {
 			// serving a gzip'd asset from s3 requires us to upload it without the
 			// extension, and specify it as compressed via ContentEncoding
-			params.Key = _parsedName.dir + '/' + _parsedName.name;
+			// also, don't prefix root-level assets with a leading '/' (eg, /index.html),
+			// otherwise s3 will create an untitled directory and store the file there.
+			params.Key = _parsedName.dir === '' ? _parsedName.name : _parsedName.dir + '/' + _parsedName.name;
 			params.Body = fs.readFileSync(_absPath);
 			// get the extension for the file prior to adding .gz
 			params.ContentType = 'text/' + extensionMimeMap[path.parse(_parsedName.name).ext];

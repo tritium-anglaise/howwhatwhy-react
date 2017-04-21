@@ -1,5 +1,7 @@
 .DS_Store
 .idea/
-node_modules/
-dist/
 .sass-cache/
+assets/css/*
+dist/
+node_modules/
+todays-data.js
