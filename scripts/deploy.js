@@ -6,8 +6,16 @@ const AWS = require( 'aws-sdk' ),
 	fs = require( 'fs' ),
 	path = require('path'),
 	zlib = require('zlib'),
-	imageExtensions = ['.gif', '.ico', '.jpg', '.png'],
-	extensionMimeMap = {'.css': 'css', '.html': 'html', '.js': 'javascript'},
+	extensionMimeMap = {
+		'.css': {mimeType: 'text/css', binary: false},
+		'.gif': {mimeType: 'image/gif', binary: true},
+		'.html': {mimeType: 'text/html', binary: false},
+        '.ico': {mimeType: 'image/ico', binary: true},
+		'.js': {mimeType: 'text/javascript', binary: false},
+        '.jpg': {mimeType: 'image/jpg', binary: true},
+        '.png': {mimeType: 'image/png', binary: true},
+		'.woff': {mimeType: 'application/font-woff', binary: true}
+	},
 	s3 = new AWS.S3( {region: 'us-west-2'} ),
 	uploadFile = function( file ) {
 		let params = {
@@ -16,14 +24,19 @@ const AWS = require( 'aws-sdk' ),
 			},
 			_absPath = path.resolve('dist', file),
 			_parsedName = path.parse(file),
-			_extension = _parsedName.ext;
+			_extension = _parsedName.ext,
+			_mimeData = extensionMimeMap[_extension];
 
-		if (imageExtensions.includes(_extension)) {
-			params.Body = fs.readFileSync(_absPath);
-			params.ContentType = 'image/' + _extension;
+		if (_mimeData !== undefined) {
+			if (_mimeData.binary){
+                params.Body = fs.readFileSync(_absPath);
+			} else {
+                params.Body = fs.readFileSync(_absPath, 'utf8');
+			}
+			params.ContentType = _mimeData.mimeType;
 		} else if (_parsedName.ext === '.gz') {
 			// serving a gzip'd asset from s3 requires us to upload it without the
-			// extension, and specify it as compressed via ContentEncoding
+			// extension. we need to specify it as compressed via ContentEncoding.
 			// also, don't prefix root-level assets with a leading '/' (eg, /index.html),
 			// otherwise s3 will create an untitled directory and store the file there.
 			params.Key = _parsedName.dir === '' ? _parsedName.name : _parsedName.dir + '/' + _parsedName.name;
@@ -31,12 +44,6 @@ const AWS = require( 'aws-sdk' ),
 			// get the extension for the file prior to adding .gz
 			params.ContentType = 'text/' + extensionMimeMap[path.parse(_parsedName.name).ext];
 			params.ContentEncoding = 'gzip';
-		} else if (_parsedName.ext === '.woff') {
-			params.Body = fs.readFileSync(_absPath);
-			params.ContentType = 'application/font-woff';
-		} else {
-			params.Body = fs.readFileSync(_absPath, 'utf8');
-			params.ContentType = 'text/' + _extension;
 		}
 
 		s3.putObject(params, function (error) {

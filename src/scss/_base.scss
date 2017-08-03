@@ -9,7 +9,7 @@ a {
 
 body {
   color: $black;
-  font-family: 'American Typewriter', Courier;
+  font-family: 'American Typewriter', Courier, serif;
   height: 100%;
   margin: 0;
   padding: 0;
@@ -44,7 +44,7 @@ select {
   border: none;
 
   cursor: pointer;
-  font-family: 'American Typewriter', Courier;
+  font-family: 'American Typewriter', Courier, serif;
   font-size: 1rem;
   outline: none;
   text-decoration: underline;

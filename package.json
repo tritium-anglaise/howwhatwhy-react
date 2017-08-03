@@ -6,7 +6,7 @@
   "scripts": {
     "build": "node scripts/build-prod-release.js",
     "deploy": "node scripts/deploy.js",
-    "start": "node scripts/start-dev-server.js"
+    "start": "node %NODE_DEBUG_OPTION% scripts/start-dev-server.js"
   },
   "keywords": [],
   "author": "",

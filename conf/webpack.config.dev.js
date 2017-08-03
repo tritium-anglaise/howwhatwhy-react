@@ -1,8 +1,9 @@
 const 	path = require('path'),
+		process = require('process'),
 		webpack = require('webpack');
 
 module.exports = {
-	entry: '/Users/jimmy/src/howwhatwhy-react/src/index.js',
+	entry: path.join(process.cwd(), 'src', 'index.js'),
 	output: {
 		filename: './howwhatwhy.js',
 	},
