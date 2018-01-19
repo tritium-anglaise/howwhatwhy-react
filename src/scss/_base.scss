@@ -7,12 +7,61 @@ a {
   }
 }
 
+@keyframes throb {
+  from {
+	opacity: 1;
+  }
+
+  to {
+	opacity: .1;
+  }
+}
+
+.throb {
+  -webkit-animation-name: throb;
+  -moz-animation-name: throb;
+  -o-animation-name: throb;
+  animation-name: throb;
+  animation-duration: 1s;
+  -webkit-animation-iteration-count: infinite;
+  -moz-animation-iteration-count: infinite;
+  -o-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-direction: alternate;
+  -moz-animation-direction: alternate;
+  -o-animation-direction: alternate;
+  animation-direction: alternate;
+}
+
+#citation-needed {
+  display: inline-block;
+  font-family: 'Imprint MT Shadow';
+  font-size: 2em;
+  font-weight: 400;
+
+  .y {
+	background: $hnOrange;
+	border: solid 1px white;
+	color: white;
+	display: inline-block;
+	font-size: 1.75rem;
+	outline: solid 1px $hnOrange;
+	padding: 0 10px;
+  }
+
+  .asterisk {
+	font-size: 1rem;
+	position: relative;
+	top: 2px;
+	vertical-align: super;
+  }
+}
+
 body {
   color: $black;
+  cursor: default;
   font-family: 'American Typewriter', Courier, serif;
   height: 100%;
-  margin: 0;
-  padding: 0;
 }
 
 div {
@@ -23,6 +72,13 @@ h1 {
   font-size: 3rem;
   color: $black;
   margin: -4px 0 3px 0;
+}
+
+h3 {
+  font-family: 'Imprint MT Shadow', Courier, serif;
+  font-size: 2rem;
+  text-transform: capitalize;
+  font-weight: normal;
 }
 
 header {
@@ -55,25 +111,150 @@ ul {
   margin: 0;
 }
 
+#app {
+  height: 80%;
+}
+
 #counts {
   font-style: italic;
 }
 
-#interval-wrap {
-  border: solid 1px $black;
-  border-radius: 3px;
-  padding: 3px;
+#count-container {
+  margin-top: 1.5rem;
+
+  span {
+	font-family: 'Imprint MT Shadow', Courier, serif;
+	font-size: 2rem;
+	padding: 0 8px;
+  }
+}
+
+
+#interval-selector {
+  cursor: pointer;
+  padding: 0 7px;
+  text-decoration: underline;
+
+  text-transform: capitalize;
+
+  &:hover {
+	text-decoration: underline #ff6600;
+  }
+}
+
+
+#foobar {
+  display: flex;
+  font-family: 'Imprint MT Shadow', Courier, serif;
+  font-size: 2rem;
+  justify-content: center;
+  line-height: .5;
+}
+
+#interval-select-panel {
+  background: white;
+  border: solid 1px rgba($black, 0.5);
+  border-radius: 2px 2px 4px 4px;
+  box-shadow: 0px 4px 6px 1px #333;
+  display: flex;
+  font-family: 'American Typewriter', Courier, serif;
+  font-size: 1rem;
+  margin-top: 1.4rem;
+  opacity: 1;
+  padding: 12px 0;
+  position: absolute;
+  width: 72%;
+  z-index: 100;
+
+  -webkit-transition: all 300ms;
+  -moz-transition: all 300ms;
+  -ms-transition: all 300ms;
+  -o-transition: all 300ms;
+  transition: all 300ms;
+
+  &.hidden {
+	border-width: 0;
+	height: 0;
+	opacity: 0;
+	overflow: hidden;
+	padding: 0 0;
+  }
+
+  div {
+	flex-grow: 1;
+
+	&:nth-child(3) {
+	  align-self: flex-end;
+
+	  span {
+		font-weight: bold;
+		padding-bottom: 1rem;
+	  }
+	}
+  }
+
+
+  span,strong {
+	display: block;
+	line-height: 1.3;
+	text-transform: capitalize;
+  }
+
+  span {
+	cursor: pointer;
+
+	&.selected {
+	  cursor: default;
+	  font-style: italic;
+	  text-decoration: none;
+	}
+
+	&:hover {
+	  text-decoration: underline;
+	}
+  }
+
+  strong {
+	padding-bottom: .2rem;
+	text-decoration: underline;
+  }
 }
 
 #list-wrap {
   border: solid 1px $black;
   border-radius: 3px;
   margin: 0 auto;
-  max-height: 100%;
+  height: 90%;
   overflow-x: hidden;
   overflow-y: scroll;
   position: relative;
   width: 90%;
+
+  img {
+	display: none;
+  }
+
+  &.loading {
+	overflow-y: hidden;
+
+	img {
+	  display: block;
+	  position: fixed;
+	  top: 55%;
+	  left: 40%;
+	  z-index: 200;
+	}
+
+	&:after {
+	  background: rgba(255,255,255, .75);
+	  content: ' ';
+	  display: block;
+	  position: absolute;
+	  height: 100%;
+	  top: 0;
+	  width: 100%;
+	}
+  }
 }
 
 #overlay {
@@ -88,6 +269,10 @@ ul {
 	position: relative;
 	top: 35%;
   }
+
+  &.hidden {
+	display: none;
+  }
 }
 
 #root {
@@ -98,17 +283,13 @@ ul {
   width: 80%;
 }
 
-div[data-reactroot] {
-  height: 80%;
-}
-
 .article-list {
   li {
 	line-height: 1.85;
 	list-style-type: none;
 
 	&:nth-child(even){
-	  background-color: #d3d3d3;
+	  background-color: rgba(#d3d3d3, 0.5);
 	}
   }
 }

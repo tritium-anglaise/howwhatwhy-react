@@ -1,22 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function IntervalSelector({handler}) {
+function IntervalSelector(props) {
 	return(
-		<span id="interval-wrap">
-			<select onChange={handler}>
-				<option value="0">today's</option>
-				<option value="7">the past week's</option>
-				<option value="30">the past 30 days'</option>
-				<option value="60">the past 60 days'</option>
-			</select>
-			<span className="fa fa-chevron-down" />
+		<span onClick={props.clickHandler}
+			  data-interval={props.interval}
+			  className={props.interval === props.currentInterval ? 'selected' : ''}>
+			{props.children}
 		</span>
 	);
 }
 
 IntervalSelector.propTypes = {
-	handler: PropTypes.func.isRequired
+	// clickHandler: PropTypes.function.isRequired,
+	currentInterval: PropTypes.string.isRequired,
+	interval: PropTypes.oneOfType([
+		PropTypes.number,
+		PropTypes.string
+	]).isRequired
 };
 
 export default IntervalSelector;

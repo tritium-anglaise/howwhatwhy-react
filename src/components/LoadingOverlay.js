@@ -1,20 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
-function LoadingOverlay({show}) {
-	if ( show ){
-		return(
-			<div id="overlay">
-				<img src="/img/loading.gif" alt="" />
-			</div>
-		)
-	} else {
-		return null;
-	}
+function LoadingOverlay(props) {
+	return(
+		<div id="overlay" className={props.show ? '' : 'hidden'}>
+			<img src="/img/loading.gif" alt="" />
+		</div>
+	)
 }
-
-LoadingOverlay.propTypes = {
-	show: PropTypes.bool.isRequired
-};
 
 export default LoadingOverlay;

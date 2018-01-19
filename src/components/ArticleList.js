@@ -1,22 +1,23 @@
 import React from 'react';
-import ArticleItem from './ArticleItem';
+import PropTypes from 'prop-types';
 
-function ArticleList( {list} ) {
-	if( list.length === 0 ){
-	    return(
-	    	<div>No adverbs to see here. It's probably early.</div>
-		)
-	} else {
-		return(
+function ArticleList(props) {
+	return(
+		<div id="list-wrap" className={props.isLoading ? 'loading' : ''}>
+			<img id="loading-img" src="/img/loading.gif" alt="" />
 			<ul className="article-list">
-				{list.map((item) => {
-					if(item.href !== null && item.linktext !== null){
-						return <ArticleItem key={item.id} href={item.href} linktext={item.linktext} />
-					}
+				{ props.list.map((item) => {
+					return <li key={item.id}>
+						<a href={item.href} target="_blank">{item.linktext}</a>
+					</li>
 				})}
 			</ul>
-		)
-	}
+		</div>
+	)
 }
+
+ArticleList.propTypes = {
+	isLoading: PropTypes.bool.isRequired
+};
 
 export default ArticleList;

@@ -12,6 +12,7 @@ const 	cssBuilder = require('./css-builder.js'),
 		});
 
 server.listen(8000);
+cssBuilder.build();
 
 // watch the file system for any change to a file in the scss directory
 fs.watch( path.join( process.cwd(), 'src', 'scss' ), cssBuilder.build );
