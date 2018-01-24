@@ -1,9 +1,31 @@
 @media (max-width: 768px) {
   #list-wrap {
 	width: 100%;
+
+	&.loading img {
+	  top: 45%;
+	}
   }
 
   #root {
 	  width: 90%;
+  }
+
+  #interval-container {
+	position: relative;
+  }
+
+  #interval-select-panel {
+	left: 0;
+	width: 100%;
+
+	span, strong {
+	  font-size: 1.25rem;
+	  line-height: 1.4;
+	}
+
+	div:nth-child(3) {
+	  align-self: center;
+	}
   }
 }

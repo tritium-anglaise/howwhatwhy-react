@@ -1,38 +1,66 @@
-import React from 'react';
-import ArticleList from './components/ArticleList';
-import FetchHandler from './util/FetchHandler';
-import IntervalSelector from './components/IntervalSelector';
-import LoadingOverlay from './components/LoadingOverlay';
-import SummaryDisplay from './components/SummaryDisplay';
+import React, { Component } from 'react';
+import ArticleDetails from './components/ArticleDetails';
+import IntervalPanel from './components/IntervalPanel';
 
-class App extends React.Component {
-	constructor(props) {
-		super(props);
+import getHeadlines from './fetch-handler';
 
-		this.getHeadlines = new FetchHandler().getHeadlines.bind(this);
+class App extends Component {
+	state = {
+		interval: '8',
+		loading: false,
+		workingData: [],
+		showIntervalPanel: false
+	};
 
-		this.state = {
-			// all three of these are mutated by FetchHandler
-			interval: 0,
-			loading: false,
-			workingData: window.todaysData === undefined ? [] : window.todaysData
-		};
+	fetchAndUpdateHeadlines = ( interval ) => {
+		this.setState({ loading: true });
+
+		getHeadlines( interval ).then(( headlines ) => {
+			this.setState({
+				loading: false,
+				workingData: headlines
+			});
+		});
+	};
+
+	componentDidMount() {
+		this.fetchAndUpdateHeadlines( this.state.interval );
 	}
 
-	render() {
-		return (
-			<div className="App">
-				<header>
-					<IntervalSelector handler={this.getHeadlines}/> most popular adverb on <a href="http://news.ycombinator.com">news.ycombinator.com</a> is
-					<SummaryDisplay list={this.state.workingData} range={this.state.interval} />
-				</header>
-				<div id="list-wrap">
-					<ArticleList className="article-wrap" list={this.state.workingData} />
-					<LoadingOverlay show={this.state.loading}/>
-				</div>
-			</div>
-		);
-	}
+	togglePanelVisibility = () => {
+		this.setState({
+			showIntervalPanel: !this.state.showIntervalPanel
+		});
+	};
+
+	intervalClickHandler = (e) => {
+		let interval = e.target.dataset.interval;
+		this.setState({ interval: interval });
+		this.fetchAndUpdateHeadlines(interval);
+	};
+
+	noOp = () => {};
+
+  render() {
+    return (
+		<div id="app" onClick={this.state.showIntervalPanel ? this.togglePanelVisibility : this.noOp}>
+			<header>
+				<h3>the most popular adverbs on</h3>
+				<h4 id="citation-needed">
+					<span className="y">Y</span> Hacker News<span className="asterisk" title="for a period of ten months, anyway.">&#42;</span>
+				</h4>
+				<IntervalPanel currentInterval={this.state.interval}
+							   clickHandler={this.intervalClickHandler}
+							   togglePanelHandler={this.togglePanelVisibility}
+							   intervalPanelIsHidden={this.state.showIntervalPanel} />
+			</header>
+			<ArticleDetails isLoading={this.state.loading}
+							list={this.state.workingData}
+							counts={[this.state.howCount, this.state.whatCount, this.state.whyCount]} />
+
+		</div>
+    );
+  }
 }
 
 export default App;
