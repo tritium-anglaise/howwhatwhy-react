@@ -12,7 +12,6 @@ function IntervalSelector(props) {
 }
 
 IntervalSelector.propTypes = {
-	// clickHandler: PropTypes.function.isRequired,
 	currentInterval: PropTypes.string.isRequired,
 	interval: PropTypes.oneOfType([
 		PropTypes.number,

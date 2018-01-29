@@ -9,7 +9,9 @@
 	text-transform: capitalize;
 
 	&:hover, &.active {
-	  text-decoration: underline $hnOrange
+	  text-decoration: underline;
+	  text-decoration-color: $hnOrange;
+	  -webkit-text-decoration-color: $hnOrange;
 	}
   }
 }

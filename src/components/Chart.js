@@ -32,7 +32,6 @@ class Chart extends Component {
 		this.chart = Highcharts.chart('chart-container', {
 			chart: {
 				height: '100%',
-				width: 400,
 				type: 'pie',
 				spacing: [0,0,0,0],
 				style: {
@@ -76,7 +75,25 @@ class Chart extends Component {
 						allowPointSelect: true
 					}
 				}
-			}
+			},
+			//styling for mobile screens
+			responsive: {
+				rules: [{
+					condition: {
+						maxWidth: 400
+					},
+					chartOptions: {
+						plotOptions: {
+							pie: {
+								dataLabels: {
+									distance: -45,
+									y: -28
+								}
+							}
+						}
+					}
+				}]
+			},
 		})
 	};
 
@@ -90,8 +107,9 @@ class Chart extends Component {
 			segments of the pie chart as well as the adverb counts above the
 			list AND have the pie chart show the correct 'selected' display.
 
-			Briefly, when interacting with the chart itself it's necessary to juggle
-			state with .setState('select') and .setState(''). When the chart is reacting
+			Briefly, when interacting with the chart itself it's necessary to
+			juggle state with .setState('select') (for adverb count clicks) and
+			.setState('') (for pie chart clicks). When the chart is reacting
 			to a prop change initiated by the counts, using .select(true|false) is
 			the way to go.
 		 */
@@ -117,7 +135,9 @@ class Chart extends Component {
 			let point = this.chart.series[0].data.find(
 				x => x.name === `${this.props.currentFilter}s`
 			);
+
 			if( this.chartClickInitiatedFilterChange ) {
+				this.chartClickInitiatedFilterChange = false;
 				if(point.selected){
 					point.setState('select');
 				} else {

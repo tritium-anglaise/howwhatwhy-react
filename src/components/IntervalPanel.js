@@ -36,6 +36,7 @@ function IntervalPanel(props) {
 				<img src="/img/athena-sm-gray.png" alt="" />
 			</div>
 		</div>
+		<span id="interval-instructions" data-verb-mobile="(Tap " data-verb="(Click ">the underlined bit to select a different month/time frame, and then on the chart or adverb counts to filter further.)</span>
 	</div>;
 }
 

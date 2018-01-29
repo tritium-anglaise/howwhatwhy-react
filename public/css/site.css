@@ -15,7 +15,7 @@ a {
 body {
   color: #333333;
   cursor: default;
-  font-family: 'American Typewriter', Courier, serif;
+  font-family: "American Typewriter", Courier, serif;
   height: 100%; }
 
 div {
@@ -45,16 +45,16 @@ ul {
   padding: 0;
   margin: 0; }
 
-@keyframes throb {
+@keyframes pulse {
   from {
     opacity: 1; }
   to {
     opacity: .1; } }
-.throb {
-  -webkit-animation-name: throb;
-  -moz-animation-name: throb;
-  -o-animation-name: throb;
-  animation-name: throb;
+.pulse {
+  -webkit-animation-name: pulse;
+  -moz-animation-name: pulse;
+  -o-animation-name: pulse;
+  animation-name: pulse;
   animation-duration: 1s;
   -webkit-animation-iteration-count: infinite;
   -moz-animation-iteration-count: infinite;
@@ -64,6 +64,9 @@ ul {
   -moz-animation-direction: alternate;
   -o-animation-direction: alternate;
   animation-direction: alternate; }
+
+#app {
+  height: 80%; }
 
 #citation-needed {
   display: inline-block;
@@ -84,26 +87,27 @@ ul {
     top: 2px;
     vertical-align: super; }
 
-#app {
-  height: 80%; }
-
-#counts {
-  font-style: italic; }
-
-#interval-selector {
-  cursor: pointer;
-  padding: 0 7px;
-  text-decoration: underline;
-  text-transform: capitalize; }
-  #interval-selector:hover {
-    text-decoration: underline #ff6600; }
+#root {
+  height: 100%;
+  margin: 0 auto;
+  padding-top: 15px;
+  text-align: center;
+  width: 80%; }
 
 #interval-container {
-  display: flex;
   font-family: "Imprint MT Shadow", "American Typewriter", Courier, serif;
   font-size: 2rem;
   justify-content: center;
   line-height: 1; }
+
+#interval-instructions {
+  display: block;
+  font-family: "American Typewriter", Courier, serif;
+  font-size: .75rem;
+  margin: .4rem auto 0 auto;
+  width: 50%; }
+  #interval-instructions:before {
+    content: attr(data-verb); }
 
 #interval-select-panel {
   background: white;
@@ -111,9 +115,9 @@ ul {
   border-radius: 2px 2px 4px 4px;
   box-shadow: 0 4px 6px 1px #333;
   display: flex;
-  font-family: 'American Typewriter', Courier, serif;
+  font-family: "American Typewriter", Courier, serif;
   font-size: 1rem;
-  margin-top: 1.4rem;
+  margin-top: .2rem;
   opacity: 1;
   padding: 12px 0;
   position: absolute;
@@ -153,12 +157,13 @@ ul {
     padding-bottom: .2rem;
     text-decoration: underline; }
 
-#root {
-  height: 100%;
-  margin: 0 auto;
-  padding-top: 15px;
-  text-align: center;
-  width: 80%; }
+#interval-selector {
+  cursor: pointer;
+  padding: 0 7px;
+  text-decoration: underline;
+  text-transform: capitalize; }
+  #interval-selector:hover {
+    text-decoration: underline #ff6600; }
 
 #count-container {
   margin-top: 1.5rem; }
@@ -169,7 +174,9 @@ ul {
     padding: 0 8px;
     text-transform: capitalize; }
     #count-container span:hover, #count-container span.active {
-      text-decoration: underline #ff6600; }
+      text-decoration: underline;
+      text-decoration-color: #ff6600;
+      -webkit-text-decoration-color: #ff6600; }
 
 #deets {
   display: flex;
@@ -392,12 +399,30 @@ g.highcharts-series, .highcharts-point {
 .highcharts-dense-data .highcharts-point {
   stroke-width: 0; }
 
+@keyframes fadeIn {
+  0% {
+    opacity: 0; }
+  50% {
+    opacity: 0; }
+  75% {
+    opacity: .5; }
+  100% {
+    opacity: 1; } }
 .highcharts-data-label {
   font-size: 0.9em;
   font-weight: bold;
   text-transform: capitalize; }
   .highcharts-data-label text {
-    fill: #333333; }
+    fill: #333333;
+    animation-name: fadeIn;
+    -webkit-animation-duration: 1s;
+    -moz-animation-duration: 1s;
+    -o-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-iteration-count: 1;
+    -moz-animation-iteration-count: 1;
+    -o-animation-iteration-count: 1;
+    animation-iteration-count: 1; }
 
 .highcharts-data-label-box {
   fill: none;
@@ -500,17 +525,26 @@ g.highcharts-series, .highcharts-point {
   font-size: 12px;
   fill: #666666; }
 
-@media (max-width: 768px) {
-  #list-wrap {
-    width: 100%; }
-    #list-wrap.loading img {
-      top: 45%; }
-
+@media (min-width: 1125px) {
   #root {
-    width: 90%; }
+    width: 828px; } }
+@media (max-width: 768px) {
+  g.highcharts-label.highcharts-data-label text {
+    font-size: 1.75rem !important; }
+
+  #count-container span {
+    font-size: 1.35rem; }
+
+  #deets > div {
+    height: 100%; }
 
   #interval-container {
     position: relative; }
+
+  #interval-instructions {
+    width: 60%; }
+    #interval-instructions:before {
+      content: attr(data-verb-mobile); }
 
   #interval-select-panel {
     left: 0;
@@ -519,10 +553,23 @@ g.highcharts-series, .highcharts-point {
       font-size: 1.25rem;
       line-height: 1.4; }
     #interval-select-panel div:nth-child(3) {
-      align-self: center; } }
+      align-self: center; }
+
+  #list-wrap {
+    width: 100%; }
+    #list-wrap.loading img {
+      top: 45%; }
+
+  #root {
+    width: 90%; } }
 @media (max-width: 640px) {
+  h3, h4, #citation-needed, #interval-container {
+    font-size: 1.35rem; }
+
   header {
-    padding: 0 15px; }
+    padding: 0; }
+    header h3, header h4 {
+      padding: 0 15px; }
 
   select {
     width: 100%; }
@@ -531,11 +578,37 @@ g.highcharts-series, .highcharts-point {
     position: absolute;
     right: 10px; }
 
-  #root {
-    width: 96%; }
+  #chart-container {
+    margin: 0 auto;
+    width: 70% !important; }
+
+  #citation-needed .y {
+    font-size: 1.35rem;
+    outline: none;
+    padding: 0 6px; }
+
+  #deets {
+    display: block; }
+
+  #deets > div {
+    height: auto;
+    width: auto; }
 
   #interval-container {
     display: block;
     margin: 0 auto;
-    position: relative;
-    width: 50%; } }
+    position: relative; }
+
+  #interval-instructions {
+    width: 100%; }
+
+  #interval-select-panel div:nth-child(3) {
+    align-self: flex-start; }
+  #interval-select-panel span, #interval-select-panel strong {
+    font-size: 1rem; }
+
+  #root {
+    width: 96%; }
+
+  g.highcharts-label.highcharts-data-label text {
+    font-size: 1.25rem !important; } }

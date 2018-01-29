@@ -1,18 +1,26 @@
 @media (max-width: 768px) {
-  #list-wrap {
-	width: 100%;
-
-	&.loading img {
-	  top: 45%;
-	}
+  g.highcharts-label.highcharts-data-label text{
+	font-size: 1.75rem !important;
   }
 
-  #root {
-	  width: 90%;
+  #count-container span {
+	font-size: 1.35rem;
+  }
+
+  #deets > div {
+	height: 100%;
   }
 
   #interval-container {
 	position: relative;
+  }
+
+  #interval-instructions {
+	width: 60%;
+
+	&:before {
+	  content: attr(data-verb-mobile);
+	}
   }
 
   #interval-select-panel {
@@ -27,5 +35,17 @@
 	div:nth-child(3) {
 	  align-self: center;
 	}
+  }
+
+  #list-wrap {
+	width: 100%;
+
+	&.loading img {
+	  top: 45%;
+	}
+  }
+
+  #root {
+	  width: 90%;
   }
 }

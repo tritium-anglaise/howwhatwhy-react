@@ -10,7 +10,7 @@ a {
 body {
   color: $black;
   cursor: default;
-  font-family: 'American Typewriter', Courier, serif;
+  font-family: $baseType;
   height: 100%;
 }
 
@@ -49,7 +49,7 @@ ul {
 }
 
 
-@keyframes throb {
+@keyframes pulse {
   from {
 	opacity: 1;
   }
@@ -59,11 +59,11 @@ ul {
   }
 }
 
-.throb {
-  -webkit-animation-name: throb;
-  -moz-animation-name: throb;
-  -o-animation-name: throb;
-  animation-name: throb;
+.pulse {
+  -webkit-animation-name: pulse;
+  -moz-animation-name: pulse;
+  -o-animation-name: pulse;
+  animation-name: pulse;
   animation-duration: 1s;
   -webkit-animation-iteration-count: infinite;
   -moz-animation-iteration-count: infinite;
@@ -73,6 +73,10 @@ ul {
   -moz-animation-direction: alternate;
   -o-animation-direction: alternate;
   animation-direction: alternate;
+}
+
+#app {
+  height: 80%;
 }
 
 #citation-needed {
@@ -96,105 +100,6 @@ ul {
 	position: relative;
 	top: 2px;
 	vertical-align: super;
-  }
-}
-
-
-#app {
-  height: 80%;
-}
-
-#counts {
-  font-style: italic;
-}
-
-#interval-selector {
-  cursor: pointer;
-  padding: 0 7px;
-  text-decoration: underline;
-
-  text-transform: capitalize;
-
-  &:hover {
-	text-decoration: underline $hnOrange;
-  }
-}
-
-
-#interval-container {
-  display: flex;
-  font-family: $headlineType;
-  font-size: 2rem;
-  justify-content: center;
-  line-height: 1;
-}
-
-#interval-select-panel {
-  background: white;
-  border: solid 1px rgba($black, 0.5);
-  border-radius: 2px 2px 4px 4px;
-  box-shadow: 0 4px 6px 1px #333;
-  display: flex;
-  font-family: 'American Typewriter', Courier, serif;
-  font-size: 1rem;
-  margin-top: 1.4rem;
-  opacity: 1;
-  padding: 12px 0;
-  position: absolute;
-  width: 72%;
-  z-index: 100;
-
-  -webkit-transition: all 300ms;
-  -moz-transition: all 300ms;
-  -ms-transition: all 300ms;
-  -o-transition: all 300ms;
-  transition: all 300ms;
-
-  &.hidden {
-	border-width: 0;
-	height: 0;
-	opacity: 0;
-	overflow: hidden;
-	padding: 0 0;
-  }
-
-  div {
-	flex-grow: 1;
-
-	&:nth-child(3) {
-	  align-self: flex-end;
-
-	  span {
-		font-weight: bold;
-		padding-bottom: 1rem;
-	  }
-	}
-  }
-
-
-  span,strong {
-	display: block;
-	line-height: 1.3;
-	text-transform: capitalize;
-  }
-
-  span {
-	cursor: pointer;
-
-	&.selected {
-	  cursor: default;
-	  font-style: italic;
-	  text-decoration: none;
-	}
-
-	&:hover {
-	  text-decoration: underline;
-	}
-  }
-
-  strong {
-	padding-bottom: .2rem;
-	text-decoration: underline;
   }
 }
 

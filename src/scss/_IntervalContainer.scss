@@ -1,0 +1,99 @@
+#interval-container {
+  font-family: $headlineType;
+  font-size: 2rem;
+  justify-content: center;
+  line-height: 1;
+}
+
+#interval-instructions{
+  display: block;
+  font-family: $baseType;
+  font-size: .75rem;
+  margin: .4rem auto 0 auto;
+  width: 50%;
+
+  &:before {
+	content: attr(data-verb);
+  }
+}
+
+#interval-select-panel {
+  background: white;
+  border: solid 1px rgba($black, 0.5);
+  border-radius: 2px 2px 4px 4px;
+  box-shadow: 0 4px 6px 1px #333;
+  display: flex;
+  font-family: $baseType;
+  font-size: 1rem;
+  margin-top: .2rem;
+  opacity: 1;
+  padding: 12px 0;
+  position: absolute;
+  width: 72%;
+  z-index: 100;
+
+  -webkit-transition: all 300ms;
+  -moz-transition: all 300ms;
+  -ms-transition: all 300ms;
+  -o-transition: all 300ms;
+  transition: all 300ms;
+
+  &.hidden {
+	border-width: 0;
+	height: 0;
+	opacity: 0;
+	overflow: hidden;
+	padding: 0 0;
+  }
+
+  div {
+	flex-grow: 1;
+
+	&:nth-child(3) {
+	  align-self: flex-end;
+
+	  span {
+		font-weight: bold;
+		padding-bottom: 1rem;
+	  }
+	}
+  }
+
+
+  span,strong {
+	display: block;
+	line-height: 1.3;
+	text-transform: capitalize;
+  }
+
+  span {
+	cursor: pointer;
+
+	&.selected {
+	  cursor: default;
+	  font-style: italic;
+	  text-decoration: none;
+	}
+
+	&:hover {
+	  text-decoration: underline;
+	}
+  }
+
+  strong {
+	padding-bottom: .2rem;
+	text-decoration: underline;
+  }
+}
+
+#interval-selector {
+  cursor: pointer;
+  padding: 0 7px;
+  text-decoration: underline;
+
+  text-transform: capitalize;
+
+  &:hover {
+	text-decoration: underline $hnOrange;
+  }
+}

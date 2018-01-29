@@ -1,6 +1,14 @@
 @media (max-width: 640px) {
+  h3, h4, #citation-needed, #interval-container {
+	font-size: 1.35rem;
+  }
+
   header {
-	padding: 0 15px;
+	padding: 0;
+
+	h3, h4 {
+	  padding: 0 15px;
+	}
   }
 
   select {
@@ -12,14 +20,56 @@
 	right: 10px;
   }
 
-  #root {
-	width: 96%;
+  #chart-container {
+	margin: 0 auto;
+	width: 70% !important;
+  }
+
+  #citation-needed {
+	.y {
+	  font-size: 1.35rem;
+	  outline: none;
+	  padding: 0 6px;
+	}
+  }
+
+  #deets {
+	display: block;
+  }
+
+  #deets > div {
+	height: auto;
+	width: auto;
   }
 
   #interval-container {
 	display: block;
 	margin: 0 auto;
 	position: relative;
-	width: 50%;
   }
+
+  #interval-instructions {
+	width: 100%;
+  }
+
+  #interval-select-panel {
+	div:nth-child(3) {
+	  align-self: flex-start;
+	}
+
+	span, strong {
+	  font-size: 1rem;
+	}
+  }
+
+  #root {
+	width: 96%;
+  }
+
+
+
+  g.highcharts-label.highcharts-data-label text{
+	font-size: 1.25rem !important;
+  }
+
 }

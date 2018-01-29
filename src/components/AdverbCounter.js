@@ -12,7 +12,7 @@ function clickHandler(props) {
 function AdverbCounter( props ) {
 	if( props.isLoading ){
 	    return(
-	    	<span><span className="throb">?</span> {props.children}</span>
+	    	<span><span className="pulse">?</span> {props.children}</span>
 		)
 	} else {
 		return(
