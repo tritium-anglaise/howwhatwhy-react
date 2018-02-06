@@ -6,14 +6,13 @@ import ArticleList from './ArticleList';
 import AdverbCountList from './AdverbCountList';
 
 class ArticleDetails extends Component {
-	constructor(props) {
-		super(props);
-
-		this.setFilter = this.setFilter.bind(this);
-	}
-
 	state = {
 		articleFilter: null
+	};
+
+	static propTypes = {
+		isLoading: PropTypes.bool.isRequired,
+		list: PropTypes.array.isRequired
 	};
 
 	componentDidUpdate(prevProps) {
@@ -47,7 +46,7 @@ class ArticleDetails extends Component {
 		}
 	}
 
-	setFilter(adverb) {
+	setFilter = (adverb) => {
 		if( adverb === this.state.articleFilter ){
 		    this.setState({
 				articleFilter: null
@@ -78,9 +77,5 @@ class ArticleDetails extends Component {
 	}
 }
 
-ArticleDetails.propTypes = {
-	isLoading: PropTypes.bool.isRequired,
-	list: PropTypes.array.isRequired
-};
 
 export default ArticleDetails;

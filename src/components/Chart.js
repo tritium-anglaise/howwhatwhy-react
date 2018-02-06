@@ -11,6 +11,12 @@ class Chart extends Component {
 		this.chartClickInitiatedFilterChange = true;
 	}
 
+	static propTypes = {
+		counts: PropTypes.object.isRequired,
+		currentFilter: PropTypes.string,
+		setFilter: PropTypes.func.isRequired
+	};
+
 	setChartData() {
 		return [{
 			data: [{ name: 'hows', y: this.props.counts.howCount},
@@ -156,11 +162,5 @@ class Chart extends Component {
 		)
 	}
 }
-
-Chart.propTypes = {
-	counts: PropTypes.object.isRequired,
-	currentFilter: PropTypes.string,
-	setFilter: PropTypes.func.isRequired
-};
 
 export default Chart;
