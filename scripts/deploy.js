@@ -13,8 +13,7 @@ const AWS = require( 'aws-sdk' ),
         '.ico': {mimeType: 'image/ico', binary: true},
 		'.js': {mimeType: 'text/javascript', binary: false},
         '.jpg': {mimeType: 'image/jpg', binary: true},
-        '.png': {mimeType: 'image/png', binary: true},
-		'.woff': {mimeType: 'application/font-woff', binary: true}
+        '.png': {mimeType: 'image/png', binary: true}
 	},
 	s3 = new AWS.S3( {region: 'us-west-2'} ),
 	uploadFile = function( file ) {
